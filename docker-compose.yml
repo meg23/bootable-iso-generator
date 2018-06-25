@@ -1,0 +1,13 @@
+version: '2.1'
+services:
+  build:
+    image: cyberdojofoundation/ubuntu-build-essential:18.04
+    working_dir: /tmp
+    volumes:
+      - $PWD:/target
+      - $HOME/.ssh/id_rsa.pub:/target/id_rsa.pub
+    command: >
+       bash -c "apt-get -fy install dos2unix git p7zip-full cpio gzip genisoimage whois pwgen wget fakeroot isolinux xorriso
+       && git clone https://github.com/core-process/linux-unattended-installation.git 
+       && ./linux-unattended-installation/ubuntu/18.04/build-iso.sh /target/id_rsa.pub /target/ubuntu-18.04.iso"
+
